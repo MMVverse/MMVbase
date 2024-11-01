@@ -19,7 +19,7 @@ You can install the development version of MMVbase from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("MedicinesForMalariaVenture/MMVbase", build_vignettes = TRUE)
+devtools::install_github("MMVverse/MMVbase", build_vignettes = TRUE)
 ```
 
 ## User guide
