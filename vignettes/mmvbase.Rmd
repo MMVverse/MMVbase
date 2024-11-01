@@ -1,0 +1,158 @@
+---
+title: "MMVbase User Guide"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{MMVbase User Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+The package MMVbase contains common use functions which are not specific for any 
+use case but are general enough, so that they can be used in the implementation 
+of modeling and simulation use cases or workflows. The package collects 
+such functions, together with documented coding examples and good practices. 
+This user guide summarizes conventions the authors have adopted for naming functions
+in the package and provides an overview of the available functions. You can find detailed
+function description and examples in the standard manual page of the function, which 
+is accessible from the R console using `?<function-name>. 
+
+## Naming conventions
+
+New functions in the MMVbase package follow UpperCamelCase_WithUnderscores notation. 
+Underscores symbols are used rarely, mostly to improve readability when the 
+function name contains accronymes or model parameter names such as `CL` and `PL`. For example, we 
+prefer the function name CalculateCL_FromInVitro, because it clearly separates the parameter
+name `CL` from the word `From`, whereas the function name `CalculateCLFromInVitro` is less clear.
+We prefer function names starting with a verb with a capital first letter, such as `Calculate`, 
+`Predict`, to help distinguishing function names from variable 
+names and R keywords such as `if` and `for`. Yet, there are exceptions to these naming rules, 
+in particular:
+ 
+  - `utilities` replacing functions from 3$^{\text{rd}}$ party packages or other useful functions. There is no specific convention adopted for naming such functions, but there names
+should be simple and easy to remember, e.g. `dichotomicSearch`.
+  - `get_` functions used to extract values from tables, e.g. `get_FromTable`, or to get 
+lists or data.frames of constants, e.g `get_NumericConstants` and `get_NumericConstantsAsList`.
+  - `formula_` functions, which indicate that the function implements a (simple) mathematical
+expression or a set of related expressions, e.g. `formula_convertConc`. `formula_` functions 
+do not necessarily follow any notation rule, because many such functions have been migrated 
+from other (older) MMV packages and have kept their original names. 
+  - `predict_` functions, which indicate algorithms to predict parameter values. Such functions usually 
+are more complex than `formula_` functions and return a report table with multiple rows, although this is
+not a strict rule.
+
+The prefixes `get_`, `formula_`, and `predict_` are indicative of how these functions should be used 
+in scripts: `get_` and `formula_` functions are supposed to execute quickly and therefore can be called
+repeatedly within for loops or with the same arguments, as long as this helps the clarity of the 
+code. `predict_` functions are more complex and usually slower to run, hence, they should be called only
+once with a given set of arguments and the returned object (usually a report table) should be 
+used in the rest of the script.
+
+# Function overview
+
+## Utility functions
+
+Functions currently available are: 
+  
+  - `dichotomicSearch` - this function was migrated from the MMVmalaria package. 
+  
+
+## Numeric constants
+
+Currently available functions are `get_NumericConstants` and `get_NumericConstantsAsList`.
+
+## Numerical interval functions
+
+Currently available functions are: 
+
+  - `IsInClosedInterval`: Checks if a value is in the closed interval [low, high].
+  - `IsInOpenInterval`: Checks if a value is in the open interval (low, high).
+  - `IsInLeftOpenInterval`: Checks if a value is in the left open interval (low, high].
+  - `IsInRightOpenInterval`: Checks if a value is in the right open interval [low, high).
+
+We recommend using these functions in R scripts and other functions implementations instead of 
+coding, e.g. `x>=low && x<=high`. This motivates the modelers to carefully choose the type of 
+interval check that is needed for the use case, as well to remember the choice made and to 
+make the same choice consistently across different use cases if such type of consistency
+would be meaningful. 
+
+## Geometric statistics
+
+Functions currently available are `GeometricMean`, `GeometricSD`.
+
+## Report tables
+
+Report tables provide a common way for `Calculate` and `Predict` functions to return more 
+than just a numeric value, but a table (data.frame) with rows corresponding to output values. 
+There are multiple benefits to using such report tables, in particular when the prediction 
+goes in more than one step and can have several logical branches:
+   
+  - returned values can be numeric or character
+  - report tables can contain multiple returned values on separate rows or as value columns
+  on the same row.
+  - report tables can contain the units of the returned values
+  - report tables can contain text titles, subtitles and comments providing information 
+  about how the calculation or prediction was done. 
+  - [TODO in next version] report tables can be exported to different table formats, such as Excel sheets, or xtable. 
+
+Functions currently available are `CreateOrAppendToReportTable`, `ConvertReportTableToList`, `get_FromTable`.
+
+## Formulas implementing models of hepatic clearance
+Several formula functions provide calculation of hepatic clearance (CLh) from 
+unbound intrinsic clearance (CLintu) using different hepatic clearance models. 
+The functions are grouped into pairs where each function in the pair is the inverse 
+of the other. Here's a summary of the function pairs:
+
+- `formula_CLintuToCLhPl` and `formula_CLhPlToCLintu`: calculate hepatic plasma clearance (CLhPl) 
+and intrinsic unbound hepatic clearance (CLintu) respectively, based on parameters like 
+hepatic blood flow (Qh), fraction unbound in plasma (Fu), and BP-ratio (BP). They use the 
+well-stirred model for the calculations.
+- `formula_CLhToCLintu` and `formula_CLintuToCLh`: convert hepatic blood clearance (CLh) to
+unbound intrinsic clearance (CLintu) and vice versa. They support two models for the conversion: 
+"Well-Stirred" and "Parallel". The model to use is specified by the `Model` parameter.
+- `formula_CLintuToCLh_WellStirred` and `formula_CLhToCLintu_WellStirred`: calculate hepatic 
+blood clearance (CLh) and unbound intrinsic clearance (CLintu) 
+using the Well-Stirred model.
+- `formula_CLintuToCLh_Parallel` and `formula_CLhToCLintu_Parallel`: calculate hepatic blood
+clearance (CLh) and unbound intrinsic clearance (CLintu) using the Parallel-Tube model.
+
+### Additional hepatic clearance functions
+- formula_HepExtraction - calculate hepatic extraction ratio from 
+hepatic blood clearance and hepatic blood flow.
+
+Each function first checks that all arguments are numeric and of equal length, then applies 
+the appropriate formula to each element of the input vectors. The results are returned as numeric 
+vectors with the same names as the input vectors.
+
+## Formulas derived from the Emax parasitemia killing model model
+
+The EMAX model is a pharmacodynamic model used to describe the effect of a drug as a
+sigmoidal function of drug concentration. Here's a summary of the functions:
+
+- `formula_EC50toMPC90`: calculates the MPC90 (the concentration at which 90% of the 
+maximum effect is reached) from EC50 and Hill according to the EMAX model.
+- `formula_EC50toEClevel`: calculates the ECx corresponding to a given level x of the 
+maximum effect.
+- `formula_EMAXEffect`: calculates the effect of an EMAX model for a given concentration x.
+- `formula_EMAXmodelParsToMIC`: determines the Minimum Inhibitory Concentration (MIC) from 
+EMAX PD model. MIC corresponds to the concentration at which the killing compensates growth.
+- `formula_PRRtoEMAX`: determines the EMAX value from PRR (Parasite reduction ratio) or 
+PRR value from EMAX accounting for parasite growth.
+- `formula_EMAXtoPRR`: calculates the PRR value from EMAX, accounting for parasite growth.
+
+Each function has specific input parameters related to the EMAX model, such as EC50 
+(the concentration of a drug that gives half-maximal response), hill (the Hill coefficient), 
+and level (the level of the maximum effect). The functions perform checks to ensure that all
+arguments are numeric and of the correct values. The results are returned as numeric values 
+or vectors.
+

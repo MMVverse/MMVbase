@@ -1,0 +1,28 @@
+Package: MMVbase
+Type: Package
+Title: Basic functions and coding patterns used across MMV R packages and scripting workflows
+Version: 1.0.0
+Authors@R: c(person("Venelin", "Mitov", email = "venelin.mitov@intiquan.com",
+                    comment = '<a href="https://intiquan.com">IntiQuan AG</a>',
+                    role = c("aut", "cre", "cph")))
+Maintainer: Venelin Mitov <venelin.mitov@intiquan.com>
+Description: Contains basic R functions which are not specific for any use case but 
+  are general enough, so that they can be used in the implementation of modeling and
+  simulation use cases more specific packages or workflow scripts. The package collects 
+  such functions, together with documented coding examples and good practices.
+Encoding: UTF-8
+License: GPL (>= 3.0)
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Imports: 
+    tibble,
+    data.table
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
