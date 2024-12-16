@@ -1,7 +1,7 @@
 Package: MMVbase
 Type: Package
 Title: Basic functions and coding patterns used across MMV R packages and scripting workflows
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: c(person("Venelin", "Mitov", email = "venelin.mitov@intiquan.com",
                     comment = '<a href="https://intiquan.com">IntiQuan AG</a>',
                     role = c("aut", "cre", "cph")))
@@ -19,7 +19,8 @@ Depends:
 LazyData: true
 Imports: 
     tibble,
-    data.table
+    data.table,
+    ggplot2
 Suggests: 
     knitr,
     rmarkdown,
