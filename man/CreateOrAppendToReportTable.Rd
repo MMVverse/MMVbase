@@ -70,6 +70,10 @@ resultTable <- envResultTable$resultTable
 # Getting a predicted parameter value from the result table
 Human_CL_plasma_mLminkg <- get_FromTable(
   resultTable, "Hepatic Clearance", "Human")
+
+# Print the table in an .Rmd file
+PrintReportTableAsRmd(resultTable)
+
 }
 \author{
 Venelin Mitov

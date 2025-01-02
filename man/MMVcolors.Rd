@@ -3,7 +3,7 @@
 \docType{data}
 \name{MMVcolors}
 \alias{MMVcolors}
-\title{Color table for MMVbase}
+\title{A vector of 5000 colors for MMVbase to be used as standard colors in graphics.}
 \format{
 An object of class \code{character} of length 5000.
 }
@@ -11,9 +11,20 @@ An object of class \code{character} of length 5000.
 MMVcolors
 }
 \description{
-Color table for MMVbase
+A vector of 5000 colors for MMVbase to be used as standard colors in graphics.
+}
+\details{
+Only the first 9 colors are unique, they are repeated up to the length of
+5000.
+}
+\seealso{
+Other Graphical: 
+\code{\link{MMVggplot}()},
+\code{\link{adjust_ggplotTheme}()},
+\code{\link{transform_IQRggplotToMMVggplot}()}
 }
 \author{
 Venelin Mitov (IntiQuan, \email{venelin.mitov@intiquan.com})
 }
-\keyword{internal}
+\concept{Graphical}
+\keyword{datasets}

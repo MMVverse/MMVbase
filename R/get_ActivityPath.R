@@ -1,17 +1,30 @@
+# Needed for testthat::with_mocked_bindings (see ?with_mocked_bindings):
+getwd <- NULL
 
-#' Get Activity Path
+#' Get the directory path of an activity
 #'
 #' Get activity path to be used in graphs. This allows to keep track of where the
 #' figures are located and which script was used to generate them.
-#'
+#' 
 #' @param ActivityPath If the user want to force the activity path to plot. (Default: \code{NULL}).
 #'
-#' @return A character vector with the activity path
-#'
+#' @return A character vector with the activity path. Some examples to understand how the function 
+#' behaves:
+#' * If no ../tags.RData file exists:
+#'   - current directory: /Projects_Discovery/Serie1/Work/CompX/A01_PK/Scripts - activity path: Serie1/Work/CompX/A01_PK
+#'   - current directory: /Projects/CompX/Work/A01_PK/Scripts - activity path: CompX/Work/A01_PK
+#'   - current directory: /some/other/path - activity path NULL with warning 'The current activity is not in the project folder'.
+#' * If file ../tags.RData exists and has entries: itemPath = "/sites/department/ModellingTeam/ProjectX",
+#' itemName = "ActivityY", then ProjectX/ActivityY is returned.
+#' 
+#' @details
+#' This function is used by some of the graphical functions in MMVbase. It is 
+#' not intended for use in scripts unless the user is working on an MMV activity. 
+#' 
 #' @export
 #' @author Mohammed H. Cherkaoui (MMV, \email{cherkaouim@@mmv.org}), 
 #'   Venelin Mitov (IntiQuan, \email{venelin.mitov@@intiquan.com})
-#' 
+#' @md
 #' @family Activity
 get_ActivityPath <- function(ActivityPath = NULL) {
 
@@ -19,6 +32,9 @@ get_ActivityPath <- function(ActivityPath = NULL) {
   if (is.null(ActivityPath)) {
     # ActivityPath if on PiNK
     if(file.exists("../tags.RData")){
+      # prevent check note
+      tags <- NULL
+      
       load("../tags.RData")
       ActivityPath <- file.path(gsub("/sites/department/ModellingTeam/","",tags$itemPath),
                                 tags$itemName)

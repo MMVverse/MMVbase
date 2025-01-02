@@ -4,10 +4,14 @@
 \alias{PrintReportTableAsRmd}
 \title{Print a report table in rmakrdown format}
 \usage{
-PrintReportTableAsRmd(resultTable)
+PrintReportTableAsRmd(resultTable, colnames = NULL)
 }
 \arguments{
-\item{reportTable}{a data.frame - a report table}
+\item{resultTable}{a data.frame or data.table as returned by CreateOrAppendToReportTable.}
+
+\item{colnames}{a character vector (default NULL) used to reorder or select some of the columns in the
+table to be rendered as rmd. If NULL all columns after IncludeInReport are printed in their order as in
+the resultTable.}
 }
 \value{
 nothing. This function only produces output to the standard output device

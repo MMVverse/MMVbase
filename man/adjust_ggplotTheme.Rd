@@ -17,8 +17,14 @@ adjust_ggplotTheme(gr, style = c("MMV", "MMVvpc")[1])
 \description{
 Adjust the theme of the ggplot object \code{gr} to various style (e.g. to MMV style).
 }
+\seealso{
+Other Graphical: 
+\code{\link{MMVcolors}},
+\code{\link{MMVggplot}()},
+\code{\link{transform_IQRggplotToMMVggplot}()}
+}
 \author{
 Mohammed H. Cherkaoui (MMV, \email{cherkaouim@mmv.org}),
 Venelin Mitov (IntiQuan, \email{venelin.mitov@intiquan.com})
 }
-\concept{Graphical Functions}
+\concept{Graphical}

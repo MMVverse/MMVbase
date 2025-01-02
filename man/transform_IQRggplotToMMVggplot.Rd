@@ -14,7 +14,8 @@ transform_IQRggplotToMMVggplot(
 \arguments{
 \item{IQRggplot}{ggplot object generated with \code{IQRtools} functions.}
 
-\item{style}{Style to choose between \code{"MMV"} or \code{"MMVvpc"} (Default: \code{"MMV"}).}
+\item{style}{Style to choose between \code{"MMV"} or \code{"MMVvpc"}
+(Default: \code{"MMV"}).}
 
 \item{ActivityPath}{Path of the current activity (Default: \code{NULL})}
 
@@ -24,16 +25,18 @@ transform_IQRggplotToMMVggplot(
 A ggplot object compliant with MMV standars.
 }
 \description{
-When a ggplot object is generated using \code{IQRtools} functions, this functions
-allows to adjust the ggplot object to be compliante with MMV standars;
+When a ggplot object is generated using \code{IQRtools} functions, this function
+allows to adjust the ggplot object to be compliant with MMV standards;
 It will add the path of the activity and adjust the theme if specified.
 }
 \seealso{
-Other GraphicalFunctions: 
-\code{\link{MMVggplot}()}
+Other Graphical: 
+\code{\link{MMVcolors}},
+\code{\link{MMVggplot}()},
+\code{\link{adjust_ggplotTheme}()}
 }
 \author{
 Mohammed H. Cherkaoui (MMV, \email{cherkaouim@mmv.org}),
 Venelin Mitov (IntiQuan, \email{venelin.mitov@intiquan.com})
 }
-\concept{GraphicalFunctions}
+\concept{Graphical}

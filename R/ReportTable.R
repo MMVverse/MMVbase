@@ -54,6 +54,11 @@
 #' # Getting a predicted parameter value from the result table
 #' Human_CL_plasma_mLminkg <- get_FromTable(
 #'   resultTable, "Hepatic Clearance", "Human")
+#'
+#' # Print the table in an .Rmd file
+#' PrintReportTableAsRmd(resultTable)
+#' 
+#' @md
 CreateOrAppendToReportTable <- function(table = NULL,
                                         Style = NA_character_,
                                         Text = NA_character_,
@@ -198,13 +203,19 @@ get_FromTable <- function(table,
 
 #' Print a report table in rmakrdown format
 #' 
-#' @param reportTable a data.frame - a report table
+#' @param resultTable a data.frame or data.table as returned by CreateOrAppendToReportTable.
+#' @param colnames a character vector (default NULL) used to reorder or select some of the columns in the 
+#' table to be rendered as rmd. If NULL all columns after IncludeInReport are printed in their order as in 
+#' the resultTable.
 #' 
 #' @return nothing. This function only produces output to the standard output device
 #' 
 #' @export
-PrintReportTableAsRmd <- function(resultTable) {
-  #browser()
+PrintReportTableAsRmd <- function(resultTable, colnames = NULL) {
+  # Prevent check note:
+  IncludeInReport <- NULL
+  Comment <- NULL
+  
   stopifnot(is.data.frame(resultTable))
   
   if("IncludeInReport" %in% names(resultTable)) {
@@ -238,7 +249,9 @@ PrintReportTableAsRmd <- function(resultTable) {
     if(is.null(r)) {
       next
     } else if(all(is.na(r$Style))) {
-      colnames <- c("Parameter", "Rat", "Mouse", "Dog", "Human", "Value", "Unit")
+      if(is.null(colnames)) {
+        colnames <- names(r)[(grep("IncludeInReport", names(r))+1):length(names(r))] 
+      }
       if("Comment" %in% names(r)) {
         colnames <- c(colnames, "Comment")
       }

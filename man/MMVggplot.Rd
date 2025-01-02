@@ -21,17 +21,19 @@ MMVggplot(
 \item{Caption}{Caption to add to the plot (Default: \code{NULL})}
 }
 \value{
-A ggplot object with MMV standars.
+A ggplot object with MMV standards.
 }
 \description{
 ggplot function similar to \code{ggplot2::ggplot} implementing MMV style.
 }
 \seealso{
-Other GraphicalFunctions: 
+Other Graphical: 
+\code{\link{MMVcolors}},
+\code{\link{adjust_ggplotTheme}()},
 \code{\link{transform_IQRggplotToMMVggplot}()}
 }
 \author{
 Mohammed H. Cherkaoui (MMV, \email{cherkaouim@mmv.org}),
 Venelin Mitov (IntiQuan, \email{venelin.mitov@intiquan.com})
 }
-\concept{GraphicalFunctions}
+\concept{Graphical}
