@@ -23,3 +23,11 @@ removeParametersWithNAValue_GPF <- function(gpf) {
                                                              with = FALSE]
   gpf
 }
+
+#' Check if an object inherits from S3 class GPF
+#' @param x any R object.
+#' @return a logical
+#' @author Venelin Mitov (IntiQuan)
+is_GPF <- function (x) {
+  inherits(x, "GPF")
+}
