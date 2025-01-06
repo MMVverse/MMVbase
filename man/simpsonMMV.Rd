@@ -14,8 +14,20 @@ simpsonMMV
 }
 \seealso{
 Other General Functions: 
+\code{\link{IQRtableToDataFrame}()},
+\code{\link{aux_CommonSubPath}()},
+\code{\link{aux_createUSUBJID}()},
+\code{\link{aux_formatErrorName}()},
+\code{\link{aux_removeEscapeChar}()},
+\code{\link{clopperPearsonMMV}()},
+\code{\link{convert_Unit}()},
 \code{\link{dichotomicSearch}()},
+\code{\link{file.copyMMV}()},
+\code{\link{find_MinMMV}()},
+\code{\link{get_IXGDFtoRemove}()},
 \code{\link{logLinTrapzMMV}()},
+\code{\link{newtonRaphson.Function}()},
+\code{\link{newtonRaphson.Vector}()},
 \code{\link{rectintMMV}()},
 \code{\link{thisFile}()},
 \code{\link{trapzMMV}()}
