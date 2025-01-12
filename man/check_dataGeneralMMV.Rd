@@ -25,7 +25,11 @@ The \link{check_dataGenetalMMV_Center} function is used internally.
 
 Other Data Preparation: 
 \code{\link{Check_MissingDatabyNAME}()},
-\code{\link{check_dataGeneralMMV_Center}()}
+\code{\link{check_dataGeneralMMV_Center}()},
+\code{\link{swapName_MMVnameToName}()},
+\code{\link{swapName_NameToMMVname}()},
+\code{\link{transform_dataFrame_LongToWide}()},
+\code{\link{transform_dataFrame_WideToLong}()}
 }
 \author{
 Mohammed H. Cherkaoui (MMV), \email{cherkaouim@mmv.org}

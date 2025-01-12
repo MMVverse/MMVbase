@@ -23,7 +23,11 @@ any subject defined in the column USUBJID  of the dataset \code{dataMaster}.
 \seealso{
 Other Data Preparation: 
 \code{\link{check_dataGeneralMMV}()},
-\code{\link{check_dataGeneralMMV_Center}()}
+\code{\link{check_dataGeneralMMV_Center}()},
+\code{\link{swapName_MMVnameToName}()},
+\code{\link{swapName_NameToMMVname}()},
+\code{\link{transform_dataFrame_LongToWide}()},
+\code{\link{transform_dataFrame_WideToLong}()}
 }
 \author{
 Mohammed H. Cherkaoui (MMV), \email{cherkaouim@mmv.org}

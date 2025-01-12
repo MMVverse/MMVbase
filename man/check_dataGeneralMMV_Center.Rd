@@ -27,7 +27,11 @@ If only CENTER column exists in \code{dataGeneral}, the function will create CEN
 
 Other Data Preparation: 
 \code{\link{Check_MissingDatabyNAME}()},
-\code{\link{check_dataGeneralMMV}()}
+\code{\link{check_dataGeneralMMV}()},
+\code{\link{swapName_MMVnameToName}()},
+\code{\link{swapName_NameToMMVname}()},
+\code{\link{transform_dataFrame_LongToWide}()},
+\code{\link{transform_dataFrame_WideToLong}()}
 }
 \author{
 Mohammed H. Cherkaoui (MMV), \email{cherkaouim@mmv.org}
