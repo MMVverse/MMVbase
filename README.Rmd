@@ -13,6 +13,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+
 # MMVbase
 
 <!-- badges: start -->
@@ -21,8 +23,30 @@ knitr::opts_chunk$set(
 This R package contains general functions, originally written for malaria pharmacometric 
 modeling and simulation activities, which can be useful in a broader set of use cases. 
 The package is part of the MMVverse, a collection of open source R packages developed by MMV.
+This document summarizes conventions the authors have adopted for naming functions
+in the package and provides an overview of the available functions. You can find detailed
+function description and examples in the standard manual page of the function, which 
+is accessible from the R console using `?<function-name>. 
 
-## Installation
+
+# Table of Contents 
+
+- [Installation](#installation)
+- [Naming conventions](#naming-conventions)
+- [Function overview](#function-overview)
+  - [Graphical functions](#graphical-functions)
+  - [Data functions](#data-functions)
+  - [File functions](#file-functions)
+  - [Numeric constants](#numeric-constants)
+  - [Mathematical functions](#mathematical-functions)
+  - [Statistical functions](#statistical-functions)
+  - [Reporting functions](#reporting-functions)
+  - [Translational functions](#translational-functions)
+  - [Formulas derived from the Emax parasitemia killing model](#formulas-derived-from-the-emax-parasitemia-killing-model)
+  - [Algorithm functions](#algorithm-functions)
+  - [Other utility functions](#other-utility-functions)
+
+# Installation
 
 You can install the development version of MMVbase from [GitHub](https://github.com/) with:
 
@@ -30,26 +54,9 @@ You can install the development version of MMVbase from [GitHub](https://github.
 # install.packages("devtools")
 devtools::install_github("MMVverse/MMVbase", build_vignettes = TRUE)
 ```
-## User guide
-To learn more about the package and its functionalities, you can access the package 
-vignette by running the following code after installing the package:
-
-```{r, results="hide", eval=FALSE}
-vignette("mmvbase")
-```
 
 
-# Introduction
-
-The package MMVbase contains common use functions used in modeling and simulation 
-projects. The package collects 
-such functions, together with documented coding examples and good practices. 
-This user guide summarizes conventions the authors have adopted for naming functions
-in the package and provides an overview of the available functions. You can find detailed
-function description and examples in the standard manual page of the function, which 
-is accessible from the R console using `?<function-name>. 
-
-## Naming conventions
+# Naming conventions
 
 New functions in the MMVbase package follow UpperCamelCase_WithUnderscores notation. 
 Underscores symbols are used rarely, mostly to improve readability when the 
@@ -184,27 +191,6 @@ goes in more than one step and can have several logical branches:
   - [TODO] report tables can be exported to different table formats, such as Excel sheets, or xtable. 
 
 
-## Formulas implementing models of hepatic clearance
-Several formula functions provide calculation of hepatic clearance (CLh) from 
-unbound intrinsic clearance (CLintu) using different hepatic clearance models. 
-The functions are grouped into pairs where each function in the pair is the inverse 
-of the other. Here's a summary of the function:
-
-| Function                        | Description                                                                 |
-|---------------------------------|-----------------------------------------------------------------------------|
-| `formula_CLintuToCLhPl`         | Estimate hepatic plasma CL, based on intrinsic unbound hepatic clearance, hepatic blood flow, fraction unbound in plasma and BP-ratio |
-| `formula_CLhPlToCLintu`         | Estimate intrinsic unbound hepatic clearance from final hepatic plasma clearance |
-| `formula_CLhToCLintu`           | Convert hepatic blood clearance to intrinsic clearance (unbound)            |
-| `formula_CLintuToCLh`           | Convert unbound intrinsic clearance to hepatic blood clearance              |
-| `formula_CLintuToCLh_Parallel`  | Calculate hepatic blood clearance (CLh) from unbound intrinsic clearance (CLintu) or vice versa using the Parallel-Tube model |
-| `formula_CLhToCLintu_Parallel`  | Calculate hepatic blood clearance (CLh) from unbound intrinsic clearance (CLintu) or vice versa using the Parallel-Tube model |
-| `formula_CLintuToCLh_WellStirred`| Calculate hepatic blood clearance (CLh) from unbound intrinsic clearance (CLintu) vice versa using the Well-Stirred model |
-| `formula_CLhToCLintu_WellStirred`| Calculate hepatic blood clearance (CLh) from unbound intrinsic clearance (CLintu) vice versa using the Well-Stirred model |
-| `formula_HepExtraction`         | Calculate hepatic extraction ratio from hepatic blood clearance and hepatic blood flow |
-
-Each function first checks that all arguments are numeric and of equal length, then applies 
-the appropriate formula to each element of the input vectors. The results are returned as numeric 
-vectors with the same names as the input vectors.
 
 ## Translational functions
 
