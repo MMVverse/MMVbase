@@ -6,10 +6,8 @@ Authors@R: c(person("Venelin", "Mitov", email = "venelin.mitov@intiquan.com",
                     comment = '<a href="https://intiquan.com">IntiQuan AG</a>',
                     role = c("aut", "cre", "cph")))
 Maintainer: Venelin Mitov <venelin.mitov@intiquan.com>
-Description: Contains basic R functions which are not specific for any use case but 
-  are general enough, so that they can be used in the implementation of modeling and
-  simulation use cases more specific packages or workflow scripts. The package collects 
-  such functions, together with documented coding examples and good practices.
+Description: General R functions that can be used in modeling and
+  simulation projects or more specific R-packages and. 
 Encoding: UTF-8
 License: file LICENSE
 Roxygen: list(markdown = TRUE)
@@ -20,7 +18,13 @@ LazyData: true
 Imports: 
     tibble,
     data.table,
-    ggplot2
+    ggplot2,
+    plyr,
+    dplyr,
+    tidyr,
+    pracma,
+    methods,
+    stringr
 Suggests: 
     knitr,
     rmarkdown,

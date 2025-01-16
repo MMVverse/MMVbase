@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{transform_dataFrame_LongToWide}
 \alias{transform_dataFrame_LongToWide}
-\title{transform_dataFrame_LongToWide}
+\title{Transform Data Frame from Long to Wide Format}
 \usage{
 transform_dataFrame_LongToWide(
   dataFrame_Long,
@@ -15,23 +15,67 @@ transform_dataFrame_LongToWide(
 )
 }
 \arguments{
-\item{patternConst}{Default: function(x) {
-out <- paste0(".", x)
-}}
+\item{dataFrame_Long}{A data frame in long format.}
+
+\item{key}{A character string specifying the name of the key column in the long format.}
+
+\item{value}{A character vector specifying the names of the value columns in the long format.}
+
+\item{colMaster}{A character vector specifying the names of the master columns to retain in the wide format.}
+
+\item{patternConst}{A function that generates the pattern for the value columns in the wide format. Default is \code{function(x) paste0(".", x)}.}
+}
+\value{
+A data frame in wide format.
 }
 \description{
-transform_dataFrame_LongToWide
+This function transforms a data frame from long format to wide format based on specified key and value columns.
+}
+\details{
+See the example to understand what the function does!
+}
+\examples{
+KeyPDPar_long <- tidyr::tribble(
+  ~PARAMETERTYPE,      ~METHODCLASS,  ~METHOD,  ~NLMETEM, ~key,   ~MEAN, ~MIN, ~MAX,  ~N,
+  "Dynamic", "SCID Modelling",   "EMAX", "In Vivo",       "EC50", 12.6,  9.0, 16.0, 20,
+  "Dynamic", "SCID Modelling",   "EMAX", "In Vivo",        "MIC",  7.0,  5.0,  9.0, 20,
+  "Dynamic", "SCID Modelling",   "EMAX", "In Vivo",      "MPC90", 16.4, 14.6, 20.2, 20,
+  "Dynamic", "SCID Modelling",   "EMAX", "In Vivo",      "PRR48",  6.4,  5.0,  8.6, 20,
+  "Static", "SCID Modelling",   "EMAX", "In Vivo",       "EC50",  6.3,  4.5,  8.0, 10,
+  "Static", "SCID Modelling",   "EMAX", "In Vivo",        "MIC",  3.5,  2.5,  4.5, 10,
+  "Static", "SCID Modelling",   "EMAX", "In Vivo",      "MPC90",  8.2,  7.3, 10.1, 10,
+  "Static", "SCID Modelling",   "EMAX", "In Vivo",      "PRR48",  3.2,  2.5,  4.3, 10
+  )
+  
+print(KeyPDPar_long)
+
+KeyPDPar <- transform_dataFrame_LongToWide(
+  KeyPDPar_long,
+  key = "key",
+  value = c("MEAN", "MIN", "MAX", "N"),
+  colMaster = c("PARAMETERTYPE", "METHODCLASS", "METHOD", "NLMETEM")
+)
+print(KeyPDPar)
+  
 }
 \seealso{
-Other Data Preparation: 
+Other Data: 
 \code{\link{Check_MissingDatabyNAME}()},
+\code{\link{IQRtableToDataFrame}()},
+\code{\link{aux_constructCIpercentiles}()},
+\code{\link{aux_createUSUBJID}()},
 \code{\link{check_dataGeneralMMV}()},
 \code{\link{check_dataGeneralMMV_Center}()},
+\code{\link{convert_Unit}()},
+\code{\link{get_IXGDFtoRemove}()},
+\code{\link{summarize_PIandCIgeneric}()},
+\code{\link{summaryAcrossTrials}()},
+\code{\link{summaryByTrial}()},
 \code{\link{swapName_MMVnameToName}()},
 \code{\link{swapName_NameToMMVname}()},
 \code{\link{transform_dataFrame_WideToLong}()}
 }
 \author{
-Mohammed H. Cherkaoui (MMV)
+Mohammed H. Cherkaoui (MMV), Venelin Mitov (IntiQuan GmbH)
 }
-\concept{Data Preparation}
+\concept{Data}

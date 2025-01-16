@@ -2,7 +2,7 @@
 % Please edit documentation in R/file.R
 \name{file.copyMMV}
 \alias{file.copyMMV}
-\title{File Manipulation}
+\title{Copy a file with creating the destination folder if it does not exist}
 \usage{
 file.copyMMV(
   from,
@@ -40,26 +40,15 @@ seconds may be omitted), but is more likely to do so as from R 3.4.0.
 \seealso{
 \link[base:files]{base::file.copy}
 
-Other General Functions: 
-\code{\link{IQRtableToDataFrame}()},
+Other File: 
 \code{\link{aux_CommonSubPath}()},
-\code{\link{aux_createUSUBJID}()},
-\code{\link{aux_formatErrorName}()},
-\code{\link{aux_removeEscapeChar}()},
-\code{\link{clopperPearsonMMV}()},
-\code{\link{convert_Unit}()},
-\code{\link{dichotomicSearch}()},
-\code{\link{find_MinMMV}()},
-\code{\link{get_IXGDFtoRemove}()},
-\code{\link{logLinTrapzMMV}()},
-\code{\link{newtonRaphson.Function}()},
-\code{\link{newtonRaphson.Vector}()},
-\code{\link{rectintMMV}()},
-\code{\link{simpsonMMV}()},
-\code{\link{thisFile}()},
-\code{\link{trapzMMV}()}
+\code{\link{get_fileNameExtension}()},
+\code{\link{is.fileMMV}()},
+\code{\link{load_RDataAsList}()},
+\code{\link{saveMMV}()},
+\code{\link{thisFile}()}
 }
 \author{
 Mohammed H. Cherkaoui (MMV, \email{cherkaouim@mmv.org})
 }
-\concept{General Functions}
+\concept{File}

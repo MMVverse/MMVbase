@@ -1,13 +1,25 @@
 
-#' thisFile
+#' Get the executing script file name
 #'
-#' @description
-#' @param fullName Default: FALSE
-#' @param pathNormalized Default: FALSE
-#' @return
+#' Returns the name of the current script file being executed. It can return either the full path or just the file name.
+#'
+#' @param fullName Logical. If `TRUE`, returns the full path of the file. If `FALSE`, returns only the file name. Default is `FALSE`.
+#' @param pathNormalized Logical. If `TRUE`, returns the normalized path of the file. Default is `FALSE`.
+#'
+#' @return A character string representing the file name or the full path of the current script.
+#'
+#' @details
+#' The function uses `commandArgs` to determine the file name when the script is run using `Rscript`. If the script is sourced via the R console, it uses `sys.frames` to get the file name. If the function is called from the console, it returns "Console".
+#'
+#' @examples
+#' # Example usage:
+#' thisFile()
+#' thisFile(fullName = TRUE)
+#' thisFile(pathNormalized = TRUE)
+#'
 #' @export
 #' @author Mohammed H. Cherkaoui (MMV, \email{cherkaouim@@mmv.org})
-#' @family General Functions
+#' @family File
 thisFile <- function(fullName = FALSE, pathNormalized = FALSE) {
 
   # use commandArgs:
@@ -48,8 +60,7 @@ thisFile <- function(fullName = FALSE, pathNormalized = FALSE) {
   return(thisFileName)
 }
 
-#' is.fileMMV
-#' Checks if 'filename' is a file
+#' Checks if filename is an existing file and not a directory 
 #'
 #' @md
 #'
@@ -58,9 +69,8 @@ thisFile <- function(fullName = FALSE, pathNormalized = FALSE) {
 #' @return TRUE/FALSE
 #' @export
 #' @seealso [base::file.exists], [base::dir.exists]
-#' @family General Function
+#' @family File
 #' @author Mohammed H. Cherkaoui (MMV)
-
 is.fileMMV <- function(filename){
   out <- (file.exists(filename) && !dir.exists(filename))
   
@@ -68,7 +78,7 @@ is.fileMMV <- function(filename){
 }
 
 
-#' File Manipulation
+#' Copy a file with creating the destination folder if it does not exist
 #'
 #' [file.copyMMV] works in a similar way to [base::file.copy] but automatically create
 #' the destination folder if needed. Copying to existing destination files is skipped
@@ -91,7 +101,7 @@ is.fileMMV <- function(filename){
 #'
 #' @export
 #' @seealso [base::file.copy]
-#' @family General Functions
+#' @family File
 #' @author Mohammed H. Cherkaoui (MMV, \email{cherkaouim@@mmv.org})
 file.copyMMV <- function(from,
                          to,
@@ -135,4 +145,125 @@ file.copyMMV <- function(from,
            })
   }
   
+}
+
+
+
+#' Get the extension of a filename
+#'
+#' @md
+#'
+#' @param filename Path to a file
+#'
+#' @return TRUE/FALSE
+#' @export
+#' @family File
+#' @author Mohammed H. Cherkaoui (MMV), \email{cherkaouim@@mmv.org}
+get_fileNameExtension <- function(filename){
+  
+  # Split the last part of the path:
+  ex <- strsplit(basename(filename), split="\\.")[[1]]
+  
+  # Get Extension:
+  if (length(ex)>1){
+    out <- ex[length(ex)]
+  }else{
+    out <- ""
+  }
+  
+  # Get extension:
+  return(out)
+}
+
+
+#' Load RData into a list
+#'
+#' @param fileName Path to the RData file name.
+#'
+#' @return List with all object saved in `fileName`
+#'
+#' @export
+#' @author Mohammed H. Cherkaoui (MMV, \email{cherkaouim@@mmv.org})
+#' @family File
+load_RDataAsList <- function(fileName){
+  #loads an RData file, and returns it
+  load(fileName)
+  variableNames <- ls()[!(ls() %in% c("fileName"))]
+  out <- lapply(variableNames,function(x){
+    get(x)
+  })
+  names(out) <- variableNames
+  out
+}
+
+
+#' Common Sub-Path
+#'
+#' Identify the common sub-path in the vector of paths \code{x}
+#'
+#' @param x Vector of paths for which the sub-path needs to be detected
+#'
+#' @return Character of the common sub-path
+#'
+#' @examples
+#' Paths <- c("C:/Users/Default",
+#'            "C:/Users/Public")
+#' aux_CommonSubPath(Paths)
+#'
+#' @export
+#'
+#' @author Anne Kuemmel (IntiQuan), Nathalie Gobeau (MMV, \email{gobeaun@@mmv.org})
+#' @family File
+aux_CommonSubPath <- function(x) {
+  # Sort the vector:
+  x <- sort(x)
+  
+  # Split the first and last element by path separator:
+  d_x <- strsplit(x[c(1,length(x))], "/")
+  
+  # Search for the first non common element to get the last matching one:
+  der_com <- match(FALSE, do.call("==",d_x)) - 1
+  
+  # If there is no matching element, return an empty vector, else return the common part:
+  out <- NULL
+  if(der_com==0){
+    out <- character(0)
+  }else{
+    out <- paste0(d_x[[1]][1:der_com], collapse = "/")
+  }
+  
+  # Output:
+  out
+}
+
+
+#' Save R objects
+#'
+#' [saveMMV] writes an external representation of R objects to the specified file.
+#' It uses the function [base::save]. If 'file' is a path, it will create the directory
+#' if not existent unlike [base::save].
+#'
+#' @param list A character vector containing the names of objects to be saved.
+#' @param file The name of the file where the data will be saved.
+#'
+#' @md
+#'
+#' @export
+#' @seealso [base::save]
+#' @family File
+#' @author Mohammed H. Cherkaoui (MMV, \email{cherkaouim@@mmv.org})
+saveMMV <- function(list,
+                    file){
+
+  # Get directory name:
+  dirName <- dirname(file)
+
+  # Check if the directory name exists, otherwise create it:
+  if (!dir.exists(dirName)){
+    dir.create(dirName, recursive = TRUE)
+  }
+
+  # save list of object:
+  save(list = list,
+       file = file)
 }

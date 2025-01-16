@@ -2,8 +2,7 @@
 % Please edit documentation in R/data.R
 \name{swapName_MMVnameToName}
 \alias{swapName_MMVnameToName}
-\title{swapName_MMVnameToName
-Swaps from MMV name for compound for nick name of interest}
+\title{Swaps from MMV name for compound for nick name of interest}
 \usage{
 swapName_MMVnameToName(data, CompoundList)
 }
@@ -17,18 +16,59 @@ swapName_MMVnameToName(data, CompoundList)
 }
 \description{
 Swaps the MMV name for the nick name of interest within \code{data} based on \code{CompoundList}.
-If \code{data} is a IQRdataGENERAL object, MMV name for compound will also be swapped in IQRdataGENERAL object attributes.
+If \code{data} is a IQRdataGENERAL object, MMV name for compound will also be swapped in
+IQRdataGENERAL object attributes.
+}
+\examples{
+
+# Create a mock IQRdataGeneral dataset
+data <- data.frame(
+  USUBJID = rep(1:3, each = 4),
+  COMPOUND = c("MMV123", "MMV123", "MMV456", "MMV456", "MMV789", "MMV789", "MMV101",
+               "MMV101", "MMV112", "MMV112", "MMV123", "MMV123"),
+  TRTNAME = c("MMV123 12mg", "MMV123 12mg", "MMV456 20mg", "MMV456 20mg", "MMV789 25mg", 
+              "MMV789 25mg", "MMV101 30mg", "MMV101 30mg", "MMV112 50mg", "MMV112 50mg", 
+              "MMV123 50mg", "MMV123 50mg"),
+  NAME = c("Conc MMV123", "Conc MMV123", "Conc MMV456", "Conc MMV456", "Conc MMV789", 
+           "Conc MMV789", "Conc MMV101", "Conc MMV101", "Conc MMV112", "Conc MMV112", 
+           "Conc MMV123", "Conc MMV123"),
+  VALUE = c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120)
+)
+
+# Define a mock CompoundList
+CompoundList <- list(
+  list(MMVname = "MMV123", Name = "CompoundA"),
+  list(MMVname = "MMV456", Name = "CompoundB"),
+  list(MMVname = "MMV789", Name = "CompoundC"),
+  list(MMVname = "MMV101", Name = "CompoundD"),
+  list(MMVname = "MMV112", Name = "CompoundE")
+)
+
+# Swap MMV names to nick names
+swappedData <- swapName_MMVnameToName(data, CompoundList)
+print(swappedData)
+
 }
 \seealso{
-Other Data Preparation: 
+\code{\link{swapName_NameToMMVname}}
+
+Other Data: 
 \code{\link{Check_MissingDatabyNAME}()},
+\code{\link{IQRtableToDataFrame}()},
+\code{\link{aux_constructCIpercentiles}()},
+\code{\link{aux_createUSUBJID}()},
 \code{\link{check_dataGeneralMMV}()},
 \code{\link{check_dataGeneralMMV_Center}()},
+\code{\link{convert_Unit}()},
+\code{\link{get_IXGDFtoRemove}()},
+\code{\link{summarize_PIandCIgeneric}()},
+\code{\link{summaryAcrossTrials}()},
+\code{\link{summaryByTrial}()},
 \code{\link{swapName_NameToMMVname}()},
 \code{\link{transform_dataFrame_LongToWide}()},
 \code{\link{transform_dataFrame_WideToLong}()}
 }
 \author{
-To be defined
+Mohammed H. Cherkaoui (MMV), \email{cherkaouim@mmv.org}, Venelin Mitov (IntiQuan GmbH)
 }
-\concept{Data Preparation}
+\concept{Data}

@@ -2,8 +2,7 @@
 % Please edit documentation in R/file.R
 \name{is.fileMMV}
 \alias{is.fileMMV}
-\title{is.fileMMV
-Checks if 'filename' is a file}
+\title{Checks if filename is an existing file and not a directory}
 \usage{
 is.fileMMV(filename)
 }
@@ -14,16 +13,20 @@ is.fileMMV(filename)
 TRUE/FALSE
 }
 \description{
-is.fileMMV
-Checks if 'filename' is a file
+Checks if filename is an existing file and not a directory
 }
 \seealso{
 \link[base:files]{base::file.exists}, \link[base:files2]{base::dir.exists}
 
-Other General Function: 
-\code{\link{get_fileNameExtension}()}
+Other File: 
+\code{\link{aux_CommonSubPath}()},
+\code{\link{file.copyMMV}()},
+\code{\link{get_fileNameExtension}()},
+\code{\link{load_RDataAsList}()},
+\code{\link{saveMMV}()},
+\code{\link{thisFile}()}
 }
 \author{
 Mohammed H. Cherkaoui (MMV)
 }
-\concept{General Function}
+\concept{File}

@@ -9,30 +9,59 @@ IQRtableToDataFrame(inputFileName)
 \arguments{
 \item{inputFileName}{Path to text file saved with \code{IQRtools::IQRoutputTable} to convert back to data.frame}
 }
+\value{
+a list with the following entries:.
+\itemize{
+\item data.frame: a data.frame
+\item xTitle: a character string with the title of the table
+\item xFooter: a character string with the footer of the table
+}
+}
 \description{
 Convert saved IQR table back to data.frame
 }
+\examples{
+
+# Create a sample IQRoutputTable text
+sample_text <- c(
+  "Sample Table Title",
+  "Column1|Column2|Column3",
+  "Row1Col1|Row1Col2|Row1Col3",
+  "Row2Col1|Row2Col2|Row2Col3",
+  "Sample Footer"
+)
+
+# Write the sample text to a file
+writeLines(sample_text, "sample_table.txt")
+
+# Convert the saved IQR table back to a data.frame
+result <- IQRtableToDataFrame("sample_table.txt")
+unlink("sample_table.txt")
+
+# Print the result
+print(result$dataFrame)
+print(result$xTitle)
+print(result$xFooter)
+
+}
 \seealso{
-Other General Functions: 
-\code{\link{aux_CommonSubPath}()},
+Other Data: 
+\code{\link{Check_MissingDatabyNAME}()},
+\code{\link{aux_constructCIpercentiles}()},
 \code{\link{aux_createUSUBJID}()},
-\code{\link{aux_formatErrorName}()},
-\code{\link{aux_removeEscapeChar}()},
-\code{\link{clopperPearsonMMV}()},
+\code{\link{check_dataGeneralMMV}()},
+\code{\link{check_dataGeneralMMV_Center}()},
 \code{\link{convert_Unit}()},
-\code{\link{dichotomicSearch}()},
-\code{\link{file.copyMMV}()},
-\code{\link{find_MinMMV}()},
 \code{\link{get_IXGDFtoRemove}()},
-\code{\link{logLinTrapzMMV}()},
-\code{\link{newtonRaphson.Function}()},
-\code{\link{newtonRaphson.Vector}()},
-\code{\link{rectintMMV}()},
-\code{\link{simpsonMMV}()},
-\code{\link{thisFile}()},
-\code{\link{trapzMMV}()}
+\code{\link{summarize_PIandCIgeneric}()},
+\code{\link{summaryAcrossTrials}()},
+\code{\link{summaryByTrial}()},
+\code{\link{swapName_MMVnameToName}()},
+\code{\link{swapName_NameToMMVname}()},
+\code{\link{transform_dataFrame_LongToWide}()},
+\code{\link{transform_dataFrame_WideToLong}()}
 }
 \author{
 Mohammed H. Cherkaoui (MMV, \email{cherkaouim@mmv.org})
 }
-\concept{General Functions}
+\concept{Data}

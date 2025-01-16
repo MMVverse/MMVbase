@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{transform_dataFrame_WideToLong}
 \alias{transform_dataFrame_WideToLong}
-\title{transform_dataFrame}
+\title{Transform Data Frame from Wide to Long Format}
 \usage{
 transform_dataFrame_WideToLong(
   dataFrame_Wide,
@@ -13,21 +13,94 @@ transform_dataFrame_WideToLong(
 )
 }
 \arguments{
-\item{colPattern}{Default: paste0(".", value)}
+\item{dataFrame_Wide}{A data frame in wide format.}
+
+\item{key}{A character string specifying the name of the key column in the returned long
+format data.frame.}
+
+\item{value}{A character vector specifying the names of the value columns in the returned
+long format data.frame.}
+
+\item{colMaster}{A character vector specifying the names of the master columns to retain in
+the returned long format data.frame.}
+
+\item{colPattern}{A character vector specifying the patterns to match for the value columns
+in the wide format. Default is \code{paste0(".", value)}.}
+}
+\value{
+A data frame in long format.
 }
 \description{
-transform_dataFrame
+This function transforms a data frame from wide format to long format based on specified
+key and value columns.
+}
+\details{
+See and run the example to understand what the function does!
+}
+\examples{
+keyPDParams_Static <- data.frame(
+   MIC.MEAN = 3.5,
+   MIC.MIN = 2.5,
+   MIC.MAX = 4.5,
+   MIC.N = 10,
+   MPC90.MEAN = 8.2,
+   MPC90.MIN = 7.3,
+   MPC90.MAX = 10.1,
+   MPC90.N = 10,
+   EC50.MEAN = 6.3,
+   EC50.MIN = 4.5,
+   EC50.MAX = 8.0,
+   EC50.N = 10,
+   PRR48.MEAN = 3.2,
+   PRR48.MIN = 2.5,
+   PRR48.MAX = 4.3,
+   PRR48.N = 10
+)
+keyPDParams_Dynamic <- keyPDParams_Static * 2
+
+keyPDParams_Static$PARAMETERTYPE <- "Static"
+keyPDParams_Static$METHODCLASS <- "SCID Modelling"
+keyPDParams_Static$METHOD <- "EMAX"
+keyPDParams_Static$NLMETEM <- "In Vivo"
+keyPDParams_Static$BINDINGCONVERSION <- "-"
+keyPDParams_Static$DOSE <- "-"
+
+keyPDParams_Dynamic$PARAMETERTYPE <- "Dynamic"
+keyPDParams_Dynamic$METHODCLASS <- "SCID Modelling"
+keyPDParams_Dynamic$METHOD <- "EMAX"
+keyPDParams_Dynamic$NLMETEM <- "In Vivo"
+keyPDParams_Dynamic$BINDINGCONVERSION <- "-"
+keyPDParams_Dynamic$DOSE <- "-"
+
+KeyPDpar <- rbind(keyPDParams_Static, keyPDParams_Dynamic)
+print(KeyPDpar)
+
+KeyPDPar_long <- transform_dataFrame_WideToLong(KeyPDpar,
+ key = "key",
+ value = c("MEAN", "MIN", "MAX", "N"),
+ colMaster = c("PARAMETERTYPE", "METHODCLASS", "METHOD", "NLMETEM", "BINDINGCONVERSION", "DOSE")
+)
+print(KeyPDPar_long)
+
 }
 \seealso{
-Other Data Preparation: 
+Other Data: 
 \code{\link{Check_MissingDatabyNAME}()},
+\code{\link{IQRtableToDataFrame}()},
+\code{\link{aux_constructCIpercentiles}()},
+\code{\link{aux_createUSUBJID}()},
 \code{\link{check_dataGeneralMMV}()},
 \code{\link{check_dataGeneralMMV_Center}()},
+\code{\link{convert_Unit}()},
+\code{\link{get_IXGDFtoRemove}()},
+\code{\link{summarize_PIandCIgeneric}()},
+\code{\link{summaryAcrossTrials}()},
+\code{\link{summaryByTrial}()},
 \code{\link{swapName_MMVnameToName}()},
 \code{\link{swapName_NameToMMVname}()},
 \code{\link{transform_dataFrame_LongToWide}()}
 }
 \author{
-Mohammed H. Cherkaoui (MMV)
+Mohammed H. Cherkaoui (MMV), Venelin Mitov (IntiQuan GmbH)
 }
-\concept{Data Preparation}
+\concept{Data}

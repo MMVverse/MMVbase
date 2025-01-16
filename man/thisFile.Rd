@@ -2,39 +2,41 @@
 % Please edit documentation in R/file.R
 \name{thisFile}
 \alias{thisFile}
-\title{thisFile}
+\title{Get the executing script file name}
 \usage{
 thisFile(fullName = FALSE, pathNormalized = FALSE)
 }
 \arguments{
-\item{fullName}{Default: FALSE}
+\item{fullName}{Logical. If \code{TRUE}, returns the full path of the file. If \code{FALSE}, returns only the file name. Default is \code{FALSE}.}
 
-\item{pathNormalized}{Default: FALSE}
+\item{pathNormalized}{Logical. If \code{TRUE}, returns the normalized path of the file. Default is \code{FALSE}.}
+}
+\value{
+A character string representing the file name or the full path of the current script.
 }
 \description{
-thisFile
+Returns the name of the current script file being executed. It can return either the full path or just the file name.
+}
+\details{
+The function uses \code{commandArgs} to determine the file name when the script is run using \code{Rscript}. If the script is sourced via the R console, it uses \code{sys.frames} to get the file name. If the function is called from the console, it returns "Console".
+}
+\examples{
+# Example usage:
+thisFile()
+thisFile(fullName = TRUE)
+thisFile(pathNormalized = TRUE)
+
 }
 \seealso{
-Other General Functions: 
-\code{\link{IQRtableToDataFrame}()},
+Other File: 
 \code{\link{aux_CommonSubPath}()},
-\code{\link{aux_createUSUBJID}()},
-\code{\link{aux_formatErrorName}()},
-\code{\link{aux_removeEscapeChar}()},
-\code{\link{clopperPearsonMMV}()},
-\code{\link{convert_Unit}()},
-\code{\link{dichotomicSearch}()},
 \code{\link{file.copyMMV}()},
-\code{\link{find_MinMMV}()},
-\code{\link{get_IXGDFtoRemove}()},
-\code{\link{logLinTrapzMMV}()},
-\code{\link{newtonRaphson.Function}()},
-\code{\link{newtonRaphson.Vector}()},
-\code{\link{rectintMMV}()},
-\code{\link{simpsonMMV}()},
-\code{\link{trapzMMV}()}
+\code{\link{get_fileNameExtension}()},
+\code{\link{is.fileMMV}()},
+\code{\link{load_RDataAsList}()},
+\code{\link{saveMMV}()}
 }
 \author{
 Mohammed H. Cherkaoui (MMV, \email{cherkaouim@mmv.org})
 }
-\concept{General Functions}
+\concept{File}

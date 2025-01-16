@@ -58,6 +58,7 @@
 #' # Print the table in an .Rmd file
 #' PrintReportTableAsRmd(resultTable)
 #' 
+#' @family Reporting
 #' @md
 CreateOrAppendToReportTable <- function(table = NULL,
                                         Style = NA_character_,
@@ -88,6 +89,7 @@ CreateOrAppendToReportTable <- function(table = NULL,
 #' @author Venelin Mitov
 #' 
 #' @export
+#' @family Reporting
 ConvertReportTableToList <- function(table) {
   
   chunkStart <- which(!is.na(table$Style))
@@ -162,6 +164,7 @@ ConvertReportTableToList <- function(table) {
 #' totalClearance <- get_FromTable(resultTable, "Total Clearance", "Human")
 #' print(totalClearance)
 #' @export
+#' @family Reporting
 get_FromTable <- function(table, 
                           Parameter, Column = "Value", 
                           ValueIfNotFound = NULL, 
@@ -211,6 +214,7 @@ get_FromTable <- function(table,
 #' @return nothing. This function only produces output to the standard output device
 #' 
 #' @export
+#' @family Reporting
 PrintReportTableAsRmd <- function(resultTable, colnames = NULL) {
   # Prevent check note:
   IncludeInReport <- NULL

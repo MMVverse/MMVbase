@@ -17,7 +17,7 @@
 #'
 #' @export
 #' @author Mohammed H. Cherkaoui (MMV, \email{cherkaouim@@mmv.org}), Venelin Mitov (IntiQuan)
-#' @family General Functions
+#' @family Algorithmic
 dichotomicSearch <- function(
   X,               # Vector X of where the value of the function f are known
   Y,               # Vector Y such as Y=f(X)

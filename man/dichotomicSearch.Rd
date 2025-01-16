@@ -28,27 +28,7 @@ The algorithm assumes that \code{f} is a monotonic function. It will first find 
 \code{Y[k+1]-Y[k]} if decreasing function). Then it is assumed that the function \code{f} is
 linear between \code{X[k]} and \code{X[k+1]} to solve \code{f(Xsol)=Ysol}.
 }
-\seealso{
-Other General Functions: 
-\code{\link{IQRtableToDataFrame}()},
-\code{\link{aux_CommonSubPath}()},
-\code{\link{aux_createUSUBJID}()},
-\code{\link{aux_formatErrorName}()},
-\code{\link{aux_removeEscapeChar}()},
-\code{\link{clopperPearsonMMV}()},
-\code{\link{convert_Unit}()},
-\code{\link{file.copyMMV}()},
-\code{\link{find_MinMMV}()},
-\code{\link{get_IXGDFtoRemove}()},
-\code{\link{logLinTrapzMMV}()},
-\code{\link{newtonRaphson.Function}()},
-\code{\link{newtonRaphson.Vector}()},
-\code{\link{rectintMMV}()},
-\code{\link{simpsonMMV}()},
-\code{\link{thisFile}()},
-\code{\link{trapzMMV}()}
-}
 \author{
 Mohammed H. Cherkaoui (MMV, \email{cherkaouim@mmv.org}), Venelin Mitov (IntiQuan)
 }
-\concept{General Functions}
+\concept{Algorithmic}

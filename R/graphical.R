@@ -1,6 +1,3 @@
-###############################################################################-
-# Standard MMVbase colors ----
-###############################################################################-
 #' A vector of 5000 colors for MMVbase to be used as standard colors in graphics.
 #' @details
 #' Only the first 9 colors are unique, they are repeated up to the length of
@@ -107,6 +104,7 @@ MMVggplot <- function(...,
 #' 
 #' @importFrom ggplot2 theme_bw element_line element_rect rel unit
 #' @export
+#' @family Graphical
 MMVtheme <- function (base_size = 12, base_family = "") {
   colors <- list(medium = c(gray = "#737373", red = "#F15A60", 
                             green = "#7AC36A", blue = "#5A9BD4", orange = "#FAA75B", 

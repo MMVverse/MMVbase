@@ -5,29 +5,42 @@
 \title{check_dataGeneralMMV_Center
 Checks if CENTER and CENTERNAME is well defined within \code{dataGeneral}}
 \usage{
-check_dataGeneralMMV_Center(dataGeneral)
+check_dataGeneralMMV_Center(dataGeneral, CenterList)
 }
 \arguments{
 \item{dataGeneral}{IQRdataGENERAL object}
+
+\item{CenterList}{named list of center numbers (names are center names).}
 }
 \value{
 IQRdataGENERAL object
 }
 \description{
-Checks if CENTER and CENTERNAME (number and name of the center conducting the study) is defined within \code{dataGeneral}, according to MMV's standards.
+Checks if CENTER and CENTERNAME (number and name of the center conducting the study) is
+defined within \code{dataGeneral}, according to MMV's standards.
 }
 \details{
-The name and number of the center conducting the study will be checked according to the up-to-date center list, see \link{list_Center}.
-If both CENTERNAME and CENTER columns exist in \code{dataGeneral}, CENTERNAME column is taken as the reference to correct CENTER column.
+The name and number of the center conducting the study will be checked according to the
+up-to-date center list (for internal MMV use, see \code{MMVworkflows::list_Center}).
+If both CENTERNAME and CENTER columns exist in \code{dataGeneral}, CENTERNAME column is taken
+as the reference to correct CENTER column.
 If only CENTERNAME column exists in \code{dataGeneral}, the function will create CENTER column.
 If only CENTER column exists in \code{dataGeneral}, the function will create CENTERNAME column.
+
+This function is internal and supposed to only be called from \code{\link{check_dataGeneralMMV}}.
 }
 \seealso{
-\link{list_Center}
-
-Other Data Preparation: 
+Other Data: 
 \code{\link{Check_MissingDatabyNAME}()},
+\code{\link{IQRtableToDataFrame}()},
+\code{\link{aux_constructCIpercentiles}()},
+\code{\link{aux_createUSUBJID}()},
 \code{\link{check_dataGeneralMMV}()},
+\code{\link{convert_Unit}()},
+\code{\link{get_IXGDFtoRemove}()},
+\code{\link{summarize_PIandCIgeneric}()},
+\code{\link{summaryAcrossTrials}()},
+\code{\link{summaryByTrial}()},
 \code{\link{swapName_MMVnameToName}()},
 \code{\link{swapName_NameToMMVname}()},
 \code{\link{transform_dataFrame_LongToWide}()},
@@ -36,4 +49,4 @@ Other Data Preparation:
 \author{
 Mohammed H. Cherkaoui (MMV), \email{cherkaouim@mmv.org}
 }
-\concept{Data Preparation}
+\concept{Data}

@@ -1,4 +1,85 @@
-# Functions to manipulate data in vectors or data frames.
+# Needed for testthat::with_mocked_bindings (see ?with_mocked_bindings):
+getwd <- NULL
+
+#' Get the directory path of an activity
+#'
+#' Get activity path to be used in graphs. This allows to keep track of where the
+#' figures are located and which script was used to generate them.
+#' 
+#' @param ActivityPath If the user want to force the activity path to plot. (Default: \code{NULL}).
+#'
+#' @return A character vector with the activity path. Some examples to understand how the function 
+#' behaves:
+#' * If no ../tags.RData file exists:
+#'   - current directory: /Projects_Discovery/Serie1/Work/CompX/A01_PK/Scripts - activity path: Serie1/Work/CompX/A01_PK
+#'   - current directory: /Projects/CompX/Work/A01_PK/Scripts - activity path: CompX/Work/A01_PK
+#'   - current directory: /some/other/path - activity path NULL with warning 'The current activity is not in the project folder'.
+#' * If file ../tags.RData exists and has entries: itemPath = "/sites/department/ModellingTeam/ProjectX",
+#' itemName = "ActivityY", then ProjectX/ActivityY is returned.
+#' 
+#' @details
+#' This function is used by some of the graphical functions in MMVbase. It is 
+#' not intended for use in scripts unless the user is working on an MMV activity. 
+#' 
+#' @export
+#' @author Mohammed H. Cherkaoui (MMV, \email{cherkaouim@@mmv.org}), 
+#'   Venelin Mitov (IntiQuan, \email{venelin.mitov@@intiquan.com})
+#' @md
+#' @family Utility
+get_ActivityPath <- function(ActivityPath = NULL) {
+
+  # Define Activity Path for caption:
+  if (is.null(ActivityPath)) {
+    # ActivityPath if on PiNK
+    if(file.exists("../tags.RData")){
+      # prevent check note
+      tags <- NULL
+      
+      load("../tags.RData")
+      ActivityPath <- file.path(gsub("/sites/department/ModellingTeam/","",tags$itemPath),
+                                tags$itemName)
+
+    # ActivityPath if on S:/M&S
+    }else{
+      # Get Current Working Directory:
+      WorkDir       <- getwd()
+      WorkDir_Split <- strsplit(WorkDir, "/", fixed = TRUE)[[1]]
+      n_str         <- length(WorkDir_Split)
+
+      if (n_str>5 && WorkDir_Split[n_str-4]!="Projects" && WorkDir_Split[n_str-5]=="Projects_Discovery"){
+
+        # Define Serie:
+        SerieName  <- WorkDir_Split[n_str-4]
+
+        # Define Project Name:
+        ProjectName <- WorkDir_Split[n_str-2]
+
+        # Define ActivityName if NULL:
+        ActivityName  <- WorkDir_Split[n_str-1]
+
+        # Define Activity Path:
+        ActivityPath <- file.path(SerieName,"Work", ProjectName,  ActivityName)
+
+      }else if(n_str>4 && WorkDir_Split[n_str-4]=="Projects"){
+        # Define Project Name:
+        ProjectName <- WorkDir_Split[n_str-3]
+
+        # Define ActivityName if NULL:
+        ActivityName  <- WorkDir_Split[n_str-1]
+
+        # Define Activity Path:
+        ActivityPath <- file.path(ProjectName, "Work", ActivityName)
+      } else{
+        warning("The current activity is not in the project folder and 'ActivityPath' is set to NULL, therefore, it is not automatically generated\nYou can manually enter a value for 'ActivityPath'")
+        ActivityPath <- "NULL"
+      }
+    }
+  }
+
+  # Output:
+  ActivityPath
+}
+
 
 
 #' Format Error Name
@@ -10,7 +91,7 @@
 #' @return \code{parameterNames} with converted format
 #'
 #' @author Anne Kuemmel (IntiQuan)
-#' @family General Functions
+#' @family Utility
 aux_formatErrorName <- function(parameterNames) {
   # Converts error parameter names as used in sysfit to format as used in nlme
   idxErr <- grep("OUTPUT", parameterNames)
@@ -35,7 +116,7 @@ aux_formatErrorName <- function(parameterNames) {
 #' @return character of the same length as x.
 #'
 #' @export
-#' @family Data
+#' @family Utility
 remove_duplicates <- function(x) {
 
   x <- as.character(x)
@@ -57,7 +138,7 @@ remove_duplicates <- function(x) {
 #' @return The vector `percentiles` with names.
 #'
 #' @author Mohammed H. Cherkaoui (MMV)
-#' @family Data
+#' @family Utility
 aux_addNamesToPercentiles <- function(percentiles){
   
   # Check that it is between 0 and 100:
@@ -101,88 +182,6 @@ aux_constructCIpercentiles <- function(CIlevel){
   CI.percentile
 }
 
-#' Common Sub-Path
-#'
-#' Identify the common sub-path in the vector of paths \code{x}
-#'
-#' @param x Vector of paths for which the sub-path needs to be detected
-#'
-#' @return Character of the common sub-path
-#'
-#' @examples
-#' Paths <- c("C:/Users/Default",
-#'            "C:/Users/Public")
-#' aux_CommonSubPath(Paths)
-#'
-#' @export
-#'
-#' @author Anne Kuemmel (IntiQuan), Nathalie Gobeau (MMV, \email{gobeaun@@mmv.org})
-#' @family General Functions
-aux_CommonSubPath <- function(x) {
-  # Sort the vector:
-  x <- sort(x)
-  
-  # Split the first and last element by path separator:
-  d_x <- strsplit(x[c(1,length(x))], "/")
-  
-  # Search for the first non common element to get the last matching one:
-  der_com <- match(FALSE, do.call("==",d_x)) - 1
-  
-  # If there is no matching element, return an empty vector, else return the common part:
-  out <- NULL
-  if(der_com==0){
-    out <- character(0)
-  }else{
-    out <- paste0(d_x[[1]][1:der_com], collapse = "/")
-  }
-  
-  # Output:
-  out
-}
-
-
-#' Create USUBJID
-#'
-#' Add column \code{USUBJID} to \code{data} based on columns \code{STUDY}, \code{GROUP} and \code{SUBJECT},
-#' when preparing IQR data from SCID dataset
-#'
-#' @param data Dataset for which to create \code{USUBJID}
-#'
-#' @return \code{data} with extra column \code{USUBJID}
-#'
-#' @examples
-#' data <- data.frame(STUDY   = "StudyID",
-#'                    GROUP   = c("G1","G1","G2","G2"),
-#'                    SUBJECT = c("M1","M2", "M1", "M2"),
-#'                    stringsAsFactors = FALSE)
-#' data$USUBJID <- MMVmalaria:::aux_createUSUBJID(data)
-#'
-#' @export
-#' @author Aline Fuchs (MMV), Anne Kuemmel (IntiQuan)
-#' @family General Functions
-aux_createUSUBJID <- function(data) {
-  with(data, {
-    
-    # Format group with 2 digits
-    if (is.character(GROUP)) {
-      GROUP <- ifelse(nchar(GROUP) == 1, sprintf("0%s", GROUP), sprintf("%s", GROUP))
-    } else {
-      GROUP <- sprintf("%02i",GROUP)
-    }
-    
-    # Format Subject with minimum 2 digits
-    if (is.character(SUBJECT)) {
-      SUBJECT <- ifelse(nchar(SUBJECT) == 1, sprintf("0%s", SUBJECT), sprintf("%s", SUBJECT))
-    } else {
-      SUBJECT <- sprintf("%02i",SUBJECT)
-    }
-    
-    # Create subject ID nbr
-    paste(STUDY,GROUP,SUBJECT,sep="_")
-  } )
-}
-
-
 #' Removal of escape characters
 #'
 #' @param x A character vector.
@@ -192,7 +191,7 @@ aux_createUSUBJID <- function(data) {
 #'
 #' @author Anne Kuemmel (IntiQuan)
 #' @export
-#' @family General Functions
+#' @family Utility
 aux_removeEscapeChar <- function(x, escapeChars = c("\r\n","\n","\r","\t")) {
   # Removal of escape characters
   # Under windows anyway substituted by white space, but not for linux
@@ -225,7 +224,7 @@ aux_removeEscapeChar <- function(x, escapeChars = c("\r\n","\n","\r","\t")) {
 #'
 #' @export
 #' @author Mohammed H. Cherkaoui (MMV, \email{cherkaouim@@mmv.org})
-#' @family General Functions, Editing Functions
+#' @family Utility
 collapseMMV <- function(x,
                         collapseSymbole = ", ",
                         andSymbole      = " & ",
@@ -250,29 +249,3 @@ collapseMMV <- function(x,
 
 
 
-#' get_fileNameExtension
-#' Get the extension of 'filename'
-#'
-#' @md
-#'
-#' @param filename Path to a file
-#'
-#' @return TRUE/FALSE
-#' @export
-#' @family General Function
-#' @author Mohammed H. Cherkaoui (MMV), \email{cherkaouim@@mmv.org}
-get_fileNameExtension <- function(filename){
-  
-  # Split the last part of the path:
-  ex <- strsplit(basename(filename), split="\\.")[[1]]
-  
-  # Get Extension:
-  if (length(ex)>1){
-    out <- ex[length(ex)]
-  }else{
-    out <- ""
-  }
-  
-  # Get extension:
-  return(out)
-}
