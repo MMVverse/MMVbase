@@ -44,10 +44,10 @@ formula_CLhToCLintu(CLh = 100, Qh = 200, fub = 0.5, Model = "Parallel")
 
 Other Translational: 
 \code{\link{formula_CLhPlToCLintu}()},
-\code{\link{formula_CLintuToCLh}()},
 \code{\link{formula_CLintuToCLhPl}()},
 \code{\link{formula_CLintuToCLh_Parallel}()},
 \code{\link{formula_CLintuToCLh_WellStirred}()},
+\code{\link{formula_CLintuToCLh}()},
 \code{\link{formula_HepExtraction}()},
 \code{\link{formula_convertConc}()}
 }

@@ -66,10 +66,10 @@ print(c(result_plasma, expected_plasma))
 Other Translational: 
 \code{\link{formula_CLhPlToCLintu}()},
 \code{\link{formula_CLhToCLintu}()},
-\code{\link{formula_CLintuToCLh}()},
 \code{\link{formula_CLintuToCLhPl}()},
 \code{\link{formula_CLintuToCLh_Parallel}()},
 \code{\link{formula_CLintuToCLh_WellStirred}()},
+\code{\link{formula_CLintuToCLh}()},
 \code{\link{formula_HepExtraction}()}
 }
 \author{

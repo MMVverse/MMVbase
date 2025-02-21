@@ -56,9 +56,9 @@ J Pharmacokinet Biopharm. 1977;5(6):625-653. doi.org/10.1007/BF01059688
 Other Translational: 
 \code{\link{formula_CLhPlToCLintu}()},
 \code{\link{formula_CLhToCLintu}()},
-\code{\link{formula_CLintuToCLh}()},
 \code{\link{formula_CLintuToCLhPl}()},
 \code{\link{formula_CLintuToCLh_WellStirred}()},
+\code{\link{formula_CLintuToCLh}()},
 \code{\link{formula_HepExtraction}()},
 \code{\link{formula_convertConc}()}
 }

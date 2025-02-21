@@ -9,7 +9,7 @@ Maintainer: Venelin Mitov <venelin.mitov@intiquan.com>
 Description: General R functions that can be used in modeling and
   simulation projects or more specific R-packages and. 
 Encoding: UTF-8
-License: file LICENSE
+License: GPL (>= 3.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Depends: 
