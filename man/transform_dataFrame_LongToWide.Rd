@@ -9,7 +9,9 @@ transform_dataFrame_LongToWide(
   key,
   value,
   colMaster,
-  patternConst = function(x) {     out <- paste0(".", x) }
+  patternConst = function(x) {
+     out <- paste0(".", x)
+ }
 )
 }
 \arguments{
@@ -62,8 +64,8 @@ Other Data:
 \code{\link{IQRtableToDataFrame}()},
 \code{\link{aux_constructCIpercentiles}()},
 \code{\link{aux_createUSUBJID}()},
-\code{\link{check_dataGeneralMMV_Center}()},
 \code{\link{check_dataGeneralMMV}()},
+\code{\link{check_dataGeneralMMV_Center}()},
 \code{\link{convert_Unit}()},
 \code{\link{get_IXGDFtoRemove}()},
 \code{\link{summarize_PIandCIgeneric}()},
