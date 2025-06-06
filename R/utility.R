@@ -91,6 +91,7 @@ get_ActivityPath <- function(ActivityPath = NULL) {
 #' @return \code{parameterNames} with converted format
 #'
 #' @author Anne Kuemmel (IntiQuan)
+#' @export
 #' @family Utility
 aux_formatErrorName <- function(parameterNames) {
   # Converts error parameter names as used in sysfit to format as used in nlme

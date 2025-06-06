@@ -1,7 +1,7 @@
 Package: MMVbase
 Type: Package
 Title: Basic functions and coding patterns used across MMV R packages and scripting workflows
-Version: 1.2.0
+Version: 1.2.1
 Authors@R: c(person("Venelin", "Mitov", email = "venelin.mitov@intiquan.com",
                     comment = '<a href="https://intiquan.com">IntiQuan AG</a>',
                     role = c("aut", "cre", "cph")))

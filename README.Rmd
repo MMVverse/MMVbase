@@ -249,5 +249,6 @@ Functions currently available are:
 | `aux_addNamesToPercentiles` | Add names to percentiles vector                   |
 | `aux_constructCIpercentiles` | Construct CI percentiles from CI level           |
 | `aux_removeEscapeChar`   | Removal of escape characters                         |
+| `aux_formatErrorName`   | Converts sysfit error parameters to NLME              | 
 | `collapseMMV`           | Customizable Collapse Function                        |
 
