@@ -27,8 +27,9 @@ get_NumericConstantsAsList <- function() {
 get_NumericConstants <- function() {
   tribble(
     ~Name_unit,                                      ~Parameter,    ~Value,                     ~Unit,                                                 ~Source,
-    "PLGrowthRateInVitro_1PerHour",            "In-vitro ln-parasitemia growth rate", 0.04797052,                   "1/hour",                                                       "",
-    "PLGrowthRatePatient_1PerHour",              "Patient  ln-parasitemia growth rate",       0.07,                   "1/hour",                                                       "",
+    "PLGrowthRateInVitro_1PerHour",            "In-vitro ln-parasitemia growth rate", 0.04797052,                   "1/hour", "Generic value ln(10)/48 (10-fold increase per 48 h)",
+    "PLGrowthRatePatient_1PerHour",              "Patient  ln-parasitemia growth rate",       0.07,                   "1/hour", "Value measured in VIS (healthy volunteers); consistent with Wockner et al, J Infect Dis (2020) 221:963-972",
+    "PLGrowthRateSCID_1PerHour",               "SCID mouse ln-parasitemia growth rate",       0.03,                   "1/hour", "SCID mouse growth rate (McCarthy et al, Antimicrob Agents Chemother (2016) 60:3669-3675)",
     "BodyWeightMouse_kg",                                            "M body weight",      0.025,                       "kg",                                                       "",
     "BodyWeightRat_kg",                                              "R body weight",       0.25,                       "kg",                                                       "",
     "BodyWeightDog_kg",                                              "D body weight",        9.8,                       "kg",                                                       "",

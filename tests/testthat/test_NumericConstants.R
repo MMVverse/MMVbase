@@ -25,3 +25,10 @@ test_that("get_NumericConstantsAsList and get_NumericConstants have matching val
     expect_equal(value, dfConstants$Value[dfConstants$Name_unit == name])
   }
 })
+
+test_that("parasite growth rate constants are defined", {
+  constants <- get_NumericConstantsAsList()
+  expect_equal(constants$PLGrowthRateInVitro_1PerHour, log(10) / 48, tolerance = 1e-7)
+  expect_equal(constants$PLGrowthRatePatient_1PerHour, 0.07)
+  expect_equal(constants$PLGrowthRateSCID_1PerHour, 0.03)
+})
